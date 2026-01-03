@@ -1,0 +1,47 @@
+/* Dark Theme - EcoLife Weather Widget */
+
+/* Main Container */
+.vbox {
+    -fx-background-color: linear-gradient(to bottom, #263238, #37474F, #455A64);
+}
+
+/* Forecast Cards */
+.forecast-card {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+}
+
+.forecast-card:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #546E7A;
+}
+
+.button:hover {
+    -fx-background-color: #455A64;
+}
+
+#refreshButton {
+    -fx-background-color: #4CAF50;
+}
+
+#refreshButton:hover {
+    -fx-background-color: #388E3C;
+}
+
+/* Indicators */
+.circle {
+    -fx-stroke: #78909C;
+}
+
+/* Text Colors */
+.label {
+    -fx-text-fill: #ECEFF1;
+}
+
+.subtle-text {
+    -fx-text-fill: #B0BEC5;
+}

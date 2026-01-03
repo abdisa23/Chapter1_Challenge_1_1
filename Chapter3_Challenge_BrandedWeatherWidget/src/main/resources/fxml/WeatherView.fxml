@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane fx:id="rootPane" prefHeight="650.0" prefWidth="420.0" style="-fx-background-radius: 25;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ecolife.weatherwidget.controller.WeatherController">
+   <children>
+      <!-- Main Container -->
+      <VBox fx:id="mainContent" spacing="20" alignment="TOP_CENTER" style="-fx-background-radius: 25; -fx-background-color: linear-gradient(to bottom, #1B5E20, #2E7D32, #388E3C); -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 30, 0, 0, 12);">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+
+         <!-- Header with Controls -->
+         <HBox alignment="CENTER_LEFT" spacing="10">
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../images/leaf_icon.png" />
+            </ImageView>
+            <Label text="EcoLife Weather" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);" />
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Search Box -->
+            <HBox spacing="5" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 20; -fx-padding: 5 10;">
+               <TextField fx:id="searchField" promptText="Search city..." style="-fx-background-color: transparent; -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.7); -fx-border-width: 0; -fx-pref-width: 120;" />
+               <Button fx:id="searchButton" text="🔍" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 0;" />
+            </HBox>
+
+            <Button fx:id="closeButton" text="✕" style="-fx-background-color: #F08080; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15; -fx-min-width: 30; -fx-min-height: 30;" />
+         </HBox>
+
+         <!-- Loading Indicator -->
+         <ProgressIndicator fx:id="loadingIndicator" progress="-1" visible="false" style="-fx-progress-color: white;" />
+
+         <!-- Current Weather -->
+         <VBox spacing="15" alignment="CENTER">
+            <!-- Location and Time -->
+            <VBox alignment="CENTER" spacing="3">
+               <Label fx:id="locationLabel" text="EcoCity" style="-fx-text-fill: white; -fx-font-size: 26px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);" />
+               <Label fx:id="dateLabel" text="--" style="-fx-text-fill: #C8E6C9; -fx-font-size: 13px;" />
+               <Label fx:id="timeLabel" text="--:--" style="-fx-text-fill: #C8E6C9; -fx-font-size: 14px; -fx-font-weight: bold;" />
+            </VBox>
+
+            <!-- Temperature and Icon -->
+            <HBox alignment="CENTER" spacing="25">
+               <Label fx:id="weatherIcon" text="☀️" style="-fx-font-size: 90px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);" />
+               <VBox alignment="CENTER_LEFT" spacing="3">
+                  <Label fx:id="temperatureLabel" text="--°C" style="-fx-text-fill: white; -fx-font-size: 56px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);" />
+                  <Label fx:id="feelsLikeLabel" text="Feels like: --°C" style="-fx-text-fill: #A5D6A7; -fx-font-size: 13px;" />
+                  <Label fx:id="conditionLabel" text="Loading..." style="-fx-text-fill: #C8E6C9; -fx-font-size: 20px;" />
+               </VBox>
+            </HBox>
+
+            <!-- Weather Details -->
+            <GridPane hgap="25" vgap="15" alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+
+               <!-- Humidity -->
+               <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <StackPane>
+                     <Circle fx:id="humidityCircle" radius="35" stroke="#4CAF50" strokeWidth="4" fill="transparent" strokeLineCap="ROUND" />
+                     <Label text="💧" style="-fx-font-size: 24px;" />
+                  </StackPane>
+                  <Label fx:id="humidityLabel" text="--%" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                  <Label text="Humidity" style="-fx-text-fill: #C8E6C9; -fx-font-size: 13px;" />
+               </VBox>
+
+               <!-- Wind -->
+               <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <StackPane>
+                     <Circle fx:id="windCircle" radius="35" stroke="#4CAF50" strokeWidth="4" fill="transparent" strokeLineCap="ROUND" />
+                     <Label text="💨" style="-fx-font-size: 24px;" />
+                  </StackPane>
+                  <Label fx:id="windLabel" text="-- km/h" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                  <Label text="Wind Speed" style="-fx-text-fill: #C8E6C9; -fx-font-size: 13px;" />
+               </VBox>
+            </GridPane>
+         </VBox>
+
+         <!-- 5-Day Forecast -->
+         <VBox spacing="15">
+            <Label text="5-DAY FORECAST" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 0 0 5 0; -fx-border-color: rgba(255,255,255,0.2); -fx-border-width: 0 0 1 0; -fx-padding: 0 0 10 0;" />
+            <HBox fx:id="forecastContainer" spacing="20" alignment="CENTER" />
+         </VBox>
+
+         <!-- Refresh Button -->
+         <Button fx:id="refreshButton" text="🔄 Refresh Weather Data" style="-fx-background-color: #3CB371; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 12 30; -fx-font-size: 16px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);" />
+
+         <!-- Footer -->
+         <Label text="🌱 Eco-Friendly Technology • Updates Every 30 Minutes" style="-fx-text-fill: #A5D6A7; -fx-font-size: 11px; -fx-padding: 10 0 0 0; -fx-opacity: 0.8;" />
+      </VBox>
+   </children>
+</AnchorPane>
